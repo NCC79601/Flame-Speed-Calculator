@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import numpy as np
+from colorama import Fore, Style
 
 class FlameSpeedCalculator:
     def __init__(self, root):
@@ -100,7 +101,7 @@ class FlameSpeedCalculator:
                 flame_height = np.linalg.norm(v_vert) * scale_coeff
 
                 print(f'Semi apex angle: {semi_apex_angle_deg} degrees')
-                print(f'Flame height:    {flame_height} mm')
+                print(Fore.YELLOW + f'Flame height:    {flame_height} mm' + Style.RESET_ALL)
 
                 self.semi_apex_angle = semi_apex_angle_deg
                 self.flame_height    = flame_height
@@ -134,6 +135,16 @@ class FlameSpeedCalculator:
         print(f"Air: {air_flow} L/min")
         print(f"NH3: {ammonia_flow} L/min")
 
+        # equivalence ratio
+        A_to_F_stoic = 9.52
+        A_to_F = air_flow / methane_flow
+        phi = A_to_F / A_to_F_stoic
+        print(f'Equivalence ratio: {phi}')
+
+        # NH3 ratio
+        NH3_ratio = ammonia_flow / (methane_flow + ammonia_flow)
+        print(f'NH3 ratio: {100*NH3_ratio:.2f}%')
+
         total_flow = methane_flow + air_flow + ammonia_flow # L/min
         total_flow = total_flow
         v_u = total_flow * 1e-3 / 60 / (np.pi * (14.3e-3 / 2)**2)
@@ -141,7 +152,7 @@ class FlameSpeedCalculator:
         
         # laminar flame speed
         S_L = v_u * np.sin(np.deg2rad(self.semi_apex_angle))
-        print(f'Flame velocity: S_L = {S_L} m/s')
+        print(Fore.YELLOW + f'Flame velocity: S_L = {S_L} m/s' + Style.RESET_ALL)
 
 
 if __name__ == "__main__":
