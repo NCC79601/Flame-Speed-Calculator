@@ -3,10 +3,10 @@ from tkinter import filedialog
 from PIL import Image, ImageTk
 import numpy as np
 
-class PhotoMarkerApp:
+class FlameSpeedCalculator:
     def __init__(self, root):
         self.root = root
-        self.root.title("Photo Marker App")
+        self.root.title("Flame Speed Calculator")
         self.points = []  # List to store the points
         self.target_width = 900  # Modify target width
         self.target_height = 600
@@ -146,5 +146,5 @@ class PhotoMarkerApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = PhotoMarkerApp(root)
+    app = FlameSpeedCalculator(root)
     root.mainloop()
